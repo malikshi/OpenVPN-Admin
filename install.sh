@@ -174,6 +174,7 @@ printf "\n################## Setup OpenVPN ##################\n"
 # Copy certificates and the server configuration in the openvpn directory
 cp /etc/openvpn/easy-rsa/pki/{ca.crt,ta.key,issued/server.crt,private/server.key,dh.pem} "/etc/openvpn/"
 cp "$base_path/installation/server.conf" "/etc/openvpn/"
+cp "$base_path/installation/server-tcp.conf" "/etc/openvpn/"
 mkdir "/etc/openvpn/ccd"
 sed -i "s/port 443/port $server_port/" "/etc/openvpn/server.conf"
 
@@ -194,7 +195,7 @@ iptables -I OUTPUT -o tun0 -j ACCEPT
 iptables -A FORWARD -i tun0 -o eth0 -j ACCEPT
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
-iptables -t nat -A POSTROUTING -s 10.8.0.2/24 -o eth0 -j MASQUERADE
+iptables -t nat -A POSTROUTING -s 10.9.0.0/24 -o eth0 -j MASQUERADE
 
 
 printf "\n################## Setup MySQL database ##################\n"
@@ -227,7 +228,7 @@ sed -i "s/\$user = '';/\$user = '$mysql_user';/" "./include/config.php"
 sed -i "s/\$pass = '';/\$pass = '$mysql_pass';/" "./include/config.php"
 
 # Replace in the client configurations with the ip of the server
-sed -i "s/remote xxx\.xxx\.xxx\.xxx 443/remote $ip_server $server_port/" "./client-conf/gnu-linux/client.conf"
+sed -i "s/remote xxx\.xxx\.xxx\.xxx 995/remote $ip_server $server_port/" "./client-conf/windows/client-tcp.ovpn"
 sed -i "s/remote xxx\.xxx\.xxx\.xxx 443/remote $ip_server $server_port/" "./client-conf/windows/client.ovpn"
 
 # Copy ta.key inside the client-conf directory
