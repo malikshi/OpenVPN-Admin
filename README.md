@@ -50,12 +50,13 @@ Only tested on Debian Jessie. Feel free to open issues.
 
   * Setup OpenVPN and the web application:
 
-        $ cd ~/my_coding_workspace
-        $ git clone https://github.com/Chocobozzz/OpenVPN-Admin openvpn-admin
+        $ mkdir vpn
+        $ cd ~/vpn
+        $ git clone https://github.com/malikshi/OpenVPN-Admin openvpn-admin
         $ cd openvpn-admin
-        # ./install.sh www_base_dir web_user web_group
+        # ./install.sh /var/www/html www-data www-data
 
-  * Setup the web server (Apache, NGinx...) to serve the web application.
+  * Setup the web server (Apache, NGinx...) to serve the web application check https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04 
   * Create the admin of the web application by visiting `http://your-installation/index.php?installation`
 
 ## Usage
